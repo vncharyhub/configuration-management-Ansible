@@ -1,0 +1,6 @@
+---
+- name: Configure Apache with Custom Homepage
+  hosts: webservers
+  become: true
+  roles:
+    - apache
