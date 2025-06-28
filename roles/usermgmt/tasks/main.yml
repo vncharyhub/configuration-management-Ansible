@@ -1,0 +1,35 @@
+---
+- name: Create group "{{ group_name }}"
+  group:
+    name: "{{ group_name }}"
+    state: present
+
+- name: Create users and set up SSH access
+  loop: "{{ users }}"
+  loop_control:
+    label: "{{ item.name }}"
+  block:
+    - name: Create user "{{ item.name }}"
+      user:
+        name: "{{ item.name }}"
+        shell: "{{ item.shell }}"
+        groups: "{{ group_name }}"
+        append: yes
+        create_home: yes
+        state: present
+
+    - name: Create .ssh directory
+      file:
+        path: "/home/{{ item.name }}/.ssh"
+        state: directory
+        mode: '0700'
+        owner: "{{ item.name }}"
+        group: "{{ item.name }}"
+
+    - name: Copy SSH public key
+      copy:
+        src: "{{ item.pubkey }}"
+        dest: "/home/{{ item.name }}/.ssh/authorized_keys"
+        owner: "{{ item.name }}"
+        group: "{{ item.name }}"
+        mode: '0600'
