@@ -1,0 +1,11 @@
+---
+group_name: devops
+
+users:
+  - name: alice
+    shell: /bin/bash
+    pubkey: alice_id_rsa.pub
+
+  - name: bob
+    shell: /bin/bash
+    pubkey: bob_id_rsa.pub
