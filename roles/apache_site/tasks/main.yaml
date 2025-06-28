@@ -1,0 +1,17 @@
+---
+- name: Install Apache
+  apt:
+    name: apache2
+    state: present
+    update_cache: true
+
+- name: Deploy PHP homepage
+  template:
+    src: index.php.j2
+    dest: /var/www/html/index.php
+
+- name: Ensure Apache is running
+  service:
+    name: apache2
+    state: started
+    enabled: true
