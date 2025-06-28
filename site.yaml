@@ -1,0 +1,8 @@
+---
+- name: Setup LAMP stack
+  hosts: web
+  become: true
+  roles:
+    - apache_site
+    - mysql
+    - php
