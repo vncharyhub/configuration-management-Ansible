@@ -1,0 +1,13 @@
+---
+- name: Install PHP and Apache PHP module
+  apt:
+    name:
+      - php
+      - libapache2-mod-php
+    state: present
+    update_cache: true
+
+- name: Restart Apache to load PHP module
+  service:
+    name: apache2
+    state: restarted
